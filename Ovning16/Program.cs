@@ -1,9 +1,13 @@
 using Ovning16.Components;
+using Ovning16.Contracts.Services;
+using Ovning16.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
+
+builder.Services.AddScoped<IDeviceDataService, DeviceDataService>();
 
 var app = builder.Build();
 

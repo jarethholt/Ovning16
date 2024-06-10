@@ -1,8 +1,9 @@
-﻿using Ovning16.Models;
+﻿using Ovning16.Contracts.Services;
+using Ovning16.Models;
 
 namespace Ovning16.Services;
 
-public class DeviceDataService
+public class DeviceDataService : IDeviceDataService
 {
     private static List<Device>? _devices;
 
@@ -78,5 +79,43 @@ public class DeviceDataService
         };
 
         return [d1, d2, d3, d4, d5, d6, d7];
+    }
+
+    public Device AddDevice(Device device)
+    {
+        // Update the device's ID
+        int nextId = Devices.Select(d => d.DeviceId).Max() + 1;
+        device.DeviceId = nextId;
+        Devices.Add(device);
+        return Devices[^1];
+    }
+
+    public void DeleteDevice(Device device) =>
+        Devices.Remove(device);
+
+    public Device? GetDeviceByGuid(Guid guid) =>
+        Devices.FirstOrDefault(d => d.DeviceGuid == guid);
+
+    public Device? GetDeviceByGuid(string guidString) =>
+        Devices.FirstOrDefault(d => d.DeviceGuid == Guid.Parse(guidString));
+
+    public Device? GetDeviceById(int id) =>
+        Devices.FirstOrDefault(d => d.DeviceId == id);
+
+    public IEnumerable<Device> GetDevices() =>
+        Devices;
+
+    public Device? UpdateDevice(Device device)
+    {
+        Device? found = Devices.FirstOrDefault(d => d.DeviceGuid == device.DeviceGuid);
+        if (found is null)
+            return null;
+
+        found.DeviceId = device.DeviceId;
+        found.Name = device.Name;
+        found.Description = device.Description;
+        found.IsOnline = device.IsOnline;
+        found.UpdateEvents = device.UpdateEvents;
+        return found;
     }
 }
