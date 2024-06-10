@@ -6,7 +6,7 @@ public class DeviceDataService
 {
     private static List<Device>? _devices;
 
-    public static List<Device>? Devices
+    public static List<Device> Devices
     {
         get
         {
@@ -14,6 +14,9 @@ public class DeviceDataService
             return _devices;
         }
     }
+
+    public static void Reset() =>
+        _devices = InitializeDevices();
 
     private static List<Device> InitializeDevices()
     {
