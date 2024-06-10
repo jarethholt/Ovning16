@@ -1,5 +1,39 @@
 ﻿@page "/"
+@attribute [StreamRendering(true)]
 
 <PageTitle>AWIPEV Atmosphere Observatory</PageTitle>
 
 <h1>Instrument Status and Control Panel</h1>
+
+@if (Devices is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Device GUID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Online?</th>
+                <th>Last updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in Devices)
+            {
+                <tr>
+                    <td></td>
+                    <td>@device.DeviceGuid</td>
+                    <td>@device.Name</td>
+                    <td>@device.Description</td>
+                    <td>@device.IsOnline</td>
+                    <td>@device.MostRecentUpdate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
