@@ -9,23 +9,39 @@ public partial class EditDevice
     [Inject]
     public IDeviceDataService DeviceDataService { get; set; } = null!;
 
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
     [Parameter]
     public Guid DeviceGuid { get; set; }
 
     [SupplyParameterFromForm]
     public DeviceUpdateDTO DeviceUpdateDTO { get; set; } = null!;
 
-    public Device? Device { get; set; }
+    public Device Device { get; set; } = null!;
+
+    protected bool Saved = false;
+    protected string Message = string.Empty;
+    protected string StatusClass = string.Empty;
 
     protected override void OnInitialized()
     {
-        Device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        DeviceUpdateDTO = Device is null ? new() : new(Device);
+        var device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
+        if (device is null)
+            NavigationManager.NavigateTo("/devicenotfound");
+
+        Device = device!;
+        DeviceUpdateDTO = new(Device);
     }
 
     public void HandleSubmit()
     {
-        if (Device is not null)
-            DeviceDataService.UpdateDevice(Device, DeviceUpdateDTO);
+        DeviceDataService.UpdateDevice(Device, DeviceUpdateDTO);
+        StatusClass = "alert-success";
+        Message = "Device successfully updated";
+        Saved = true;
     }
+
+    public void BackToOverview() =>
+        NavigationManager.NavigateTo("/");
 }

@@ -9,7 +9,7 @@
 {
     <p><em>Loading...</em></p>
 }
-else
+else if (!Saved)
 {
     <section>
         <EditForm Enhance Model="DeviceUpdateDTO" FormName="EditDeviceForm" OnSubmit="@HandleSubmit">
@@ -44,4 +44,10 @@ else
             <button type="submit" class="btn btn-primary">Save details</button>
         </EditForm>
     </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+
+    <button type="button" class="btn btn-outline-primary" @onclick="@BackToOverview">Back to device overview</button>
 }
