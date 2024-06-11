@@ -9,11 +9,17 @@ public class Device
     public Guid DeviceGuid { get; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public bool IsOnline { get; set; }
+
+    private bool _isOnline;
+    public bool IsOnline {
+        get => _isOnline;
+        init => _isOnline = value;
+    }
 
     // Navigation property
     public List<DateTime> UpdateEvents { get; set; } = [];
 
+    // Method-like properties
     public DateTime MostRecentUpdate =>
         UpdateEvents.LastOrDefault();
 
@@ -22,6 +28,10 @@ public class Device
 
     public string ShortGuid =>
         $"{DeviceGuid.ToString()[..4]}...{DeviceGuid.ToString()[^4..]}";
+
+    // Methods
+    public void ToggleStatus() =>
+        _isOnline = !_isOnline;
 
     public string FormattedUpdateTime()
     {
