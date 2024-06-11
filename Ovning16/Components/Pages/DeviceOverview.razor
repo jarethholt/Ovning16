@@ -44,8 +44,9 @@ else
                         </td>
                     }
                     <td>
-                        <a href="@($"devicedetails/{device.DeviceGuid}")">Details</a>
-                        <a href="@($"editdevice/{device.DeviceGuid}")">Edit</a>
+                        <a class="btn btn-primary" href="@($"devicedetails/{device.DeviceGuid}")">Details</a>
+                        <a class="btn btn-primary" href="@($"editdevice/{device.DeviceGuid}")">Edit</a>
+                        <a class="btn btn-primary" href="@($"deletedevice/{device.DeviceGuid}")">Delete</a>
                     </td>
                 </tr>
             }

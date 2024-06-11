@@ -4,7 +4,7 @@ using Ovning16.Models;
 
 namespace Ovning16.Components.Pages;
 
-public partial class EditDevice
+public partial class DeleteDevice
 {
     [Inject]
     public IDeviceDataService DeviceDataService { get; set; } = null!;
@@ -14,9 +14,6 @@ public partial class EditDevice
 
     [Parameter]
     public Guid DeviceGuid { get; set; }
-
-    [SupplyParameterFromForm]
-    public DeviceUpdateDTO DeviceUpdateDTO { get; set; } = null!;
 
     public Device Device { get; set; } = null!;
 
@@ -29,15 +26,17 @@ public partial class EditDevice
             NavigationManager.NavigateTo("/devicenotfound");
 
         Device = device!;
-        DeviceUpdateDTO = new(Device);
     }
 
     public void HandleSubmit()
     {
-        DeviceDataService.UpdateDevice(Device, DeviceUpdateDTO);
+        DeviceDataService.DeleteDevice(Device);
         Saved = true;
     }
 
     public void BackToOverview() =>
         NavigationManager.NavigateTo("/");
+
+    public void ToEditDevice() =>
+        NavigationManager.NavigateTo($"/editdevice/{Device.DeviceGuid}");
 }
