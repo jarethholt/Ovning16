@@ -4,6 +4,8 @@ namespace Ovning16.Models;
 
 public class Device
 {
+    public const string DateFormat = "yyyy-MM-dd T HH:mm Z";
+
     // Primary properties
     public int DeviceId { get; set; }
     public Guid DeviceGuid { get; } = Guid.NewGuid();
@@ -17,44 +19,50 @@ public class Device
     }
 
     // Navigation property
-    private List<DateTime> _updateEvents = [];
-    public List<DateTime> UpdateEvents {
-        get => _updateEvents;
-        init => _updateEvents = value;
+    private List<DateTime> _connectionEvents = [];
+    public List<DateTime> ConnectionEvents {
+        get => _connectionEvents;
+        init => _connectionEvents = value;
     }
 
     // Method-like properties
-    public DateTime MostRecentUpdate =>
-        UpdateEvents.LastOrDefault();
+    public bool HasBeenConnected =>
+        _connectionEvents.Count != 0;
 
-    public TimeSpan TimeSinceUpdate =>
-        DateTime.UtcNow - MostRecentUpdate;
+    public DateTime LastConnectionTime =>
+        ConnectionEvents.LastOrDefault();
+
+    public TimeSpan TimeSinceLastConnection =>
+        DateTime.UtcNow - LastConnectionTime;
 
     public string ShortGuid =>
         $"{DeviceGuid.ToString()[..4]}...{DeviceGuid.ToString()[^4..]}";
 
     // Methods
+    public void PingDevice() =>
+        _connectionEvents.Add(DateTime.UtcNow);
+
     public void ToggleStatus()
     {
         _isOnline = !_isOnline;
-        _updateEvents.Add(DateTime.UtcNow);
+        PingDevice();
     }
 
-    public string FormattedUpdateTime()
+    public string FormatLastConnectionTime()
     {
-        DateTime updateTime = MostRecentUpdate;
-        return updateTime == default ? string.Empty : updateTime.ToString("yyyy-MM-dd T HH:mm Z");
+        DateTime updateTime = LastConnectionTime;
+        return !HasBeenConnected ? string.Empty : updateTime.ToString(DateFormat);
     }
 
-    public string FormattedTimeSinceUpdate()
+    public string FormatTimeSinceLastConnection()
     {
-        if (MostRecentUpdate == default)
+        if (!HasBeenConnected)
             return string.Empty;
-        else if (TimeSinceUpdate >= new TimeSpan(days: 1, 0, 0, 0))
-            return $"{(int)TimeSinceUpdate.TotalDays} days";
-        else if (TimeSinceUpdate >= new TimeSpan(hours: 3, 0, 0))
-            return $"{(int)TimeSinceUpdate.TotalHours} hours";
+        else if (TimeSinceLastConnection >= new TimeSpan(days: 1, 0, 0, 0))
+            return $"{(int)TimeSinceLastConnection.TotalDays} days";
+        else if (TimeSinceLastConnection >= new TimeSpan(hours: 3, 0, 0))
+            return $"{(int)TimeSinceLastConnection.TotalHours} hours";
         else
-            return $"{(int)TimeSinceUpdate.TotalMinutes} minutes";
+            return $"{(int)TimeSinceLastConnection.TotalMinutes} minutes";
     }
 }

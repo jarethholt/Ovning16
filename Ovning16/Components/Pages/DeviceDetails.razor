@@ -29,19 +29,37 @@ else
                 <td>@Device.IsOnline</td>
             </tr>
             <tr>
-                <td>Last updated</td>
-                @if (string.IsNullOrEmpty(Device.FormattedUpdateTime()))
+                <td>Last connection</td>
+                @if (!Device.HasBeenConnected)
                 {
                     <td>Never connected</td>
                 }
                 else
                 {
                     <td>
-                        @Device.FormattedUpdateTime()
-                        <br />@Device.FormattedTimeSinceUpdate() ago
+                        @Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)
                     </td>
                 }
             </tr>
         </tbody>
     </table>
+
+    <h3>Device connection history</h3>
+    @if (!Device.HasBeenConnected)
+    {
+        <p>This device has never been connected to.</p>
+    }
+    else
+    {
+        <table>
+            <tbody>
+                @foreach (var connectionTime in Device.ConnectionEvents)
+                {
+                    <tr>
+                        <td>@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }

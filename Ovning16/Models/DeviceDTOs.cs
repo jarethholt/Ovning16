@@ -26,6 +26,6 @@ public class DeviceAddDTO : DeviceDTO
         Name = Name,
         Description = Description,
         IsOnline = IsOnline,
-        UpdateEvents = UpdateEvents
+        ConnectionEvents = UpdateEvents
     };
 }
