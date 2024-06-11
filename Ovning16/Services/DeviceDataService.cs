@@ -114,7 +114,6 @@ public class DeviceDataService : IDeviceDataService
         found.DeviceId = device.DeviceId;
         found.Name = device.Name;
         found.Description = device.Description;
-        found.UpdateEvents = device.UpdateEvents;
         return found;
     }
 }

@@ -17,7 +17,11 @@ public class Device
     }
 
     // Navigation property
-    public List<DateTime> UpdateEvents { get; set; } = [];
+    private List<DateTime> _updateEvents = [];
+    public List<DateTime> UpdateEvents {
+        get => _updateEvents;
+        init => _updateEvents = value;
+    }
 
     // Method-like properties
     public DateTime MostRecentUpdate =>
@@ -30,8 +34,11 @@ public class Device
         $"{DeviceGuid.ToString()[..4]}...{DeviceGuid.ToString()[^4..]}";
 
     // Methods
-    public void ToggleStatus() =>
+    public void ToggleStatus()
+    {
         _isOnline = !_isOnline;
+        _updateEvents.Add(DateTime.UtcNow);
+    }
 
     public string FormattedUpdateTime()
     {
