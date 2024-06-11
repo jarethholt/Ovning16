@@ -20,7 +20,6 @@ else
                 <th>Description</th>
                 <th>Online?</th>
                 <th>Last updated</th>
-                <th>Time since update</th>
             </tr>
         </thead>
         <tbody>
@@ -32,8 +31,17 @@ else
                     <td>@device.Name</td>
                     <td>@device.Description</td>
                     <td>@device.IsOnline</td>
-                    <td>@device.FormattedUpdate()</td>
-                    <td>@device.FormattedTimeSinceUpdate()</td>
+                    @if (string.IsNullOrEmpty(device.FormattedUpdateTime()))
+                    {
+                        <td>Never connected</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @device.FormattedUpdateTime()
+                            <br />@device.FormattedTimeSinceUpdate() ago
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

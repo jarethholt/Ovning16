@@ -1,4 +1,6 @@
-﻿namespace Ovning16.Models;
+﻿using System.Web;
+
+namespace Ovning16.Models;
 
 public class Device
 {
@@ -18,16 +20,16 @@ public class Device
     public TimeSpan TimeSinceUpdate =>
         DateTime.UtcNow - MostRecentUpdate;
 
-    public string FormattedUpdate()
+    public string FormattedUpdateTime()
     {
         DateTime updateTime = MostRecentUpdate;
-        return updateTime == default ? "Never connected" : updateTime.ToString("yyyy-MM-dd T HH:mm Z");
+        return updateTime == default ? string.Empty : updateTime.ToString("yyyy-MM-dd T HH:mm Z");
     }
 
     public string FormattedTimeSinceUpdate()
     {
         if (MostRecentUpdate == default)
-            return "Never connected";
+            return string.Empty;
         else if (TimeSinceUpdate >= new TimeSpan(days: 1, 0, 0, 0))
             return $"{(int)TimeSinceUpdate.TotalDays} days";
         else if (TimeSinceUpdate >= new TimeSpan(hours: 3, 0, 0))
