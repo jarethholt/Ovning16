@@ -1,0 +1,47 @@
+﻿@page "/devicedetails/{DeviceGuid:guid}"
+
+<PageTitle>AWIPEV Atmosphere Observatory</PageTitle>
+
+<h1>Instrument details</h1>
+
+@if (Device is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>@Device.Name</td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td>@Device.DeviceGuid</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>@Device.Description</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>@Device.IsOnline</td>
+            </tr>
+            <tr>
+                <td>Last updated</td>
+                @if (string.IsNullOrEmpty(Device.FormattedUpdateTime()))
+                {
+                    <td>Never connected</td>
+                }
+                else
+                {
+                    <td>
+                        @Device.FormattedUpdateTime()
+                        <br />@Device.FormattedTimeSinceUpdate() ago
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+}

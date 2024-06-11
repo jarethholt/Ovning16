@@ -20,6 +20,7 @@ else
                 <th>Description</th>
                 <th>Online?</th>
                 <th>Last updated</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,9 @@ else
                             <br />@device.FormattedTimeSinceUpdate() ago
                         </td>
                     }
+                    <td>
+                        <a href="@($"devicedetails/{device.DeviceGuid}")">Details</a>
+                    </td>
                 </tr>
             }
         </tbody>
