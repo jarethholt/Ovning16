@@ -8,6 +8,14 @@ public abstract class DeviceDTO
 
 public class DeviceUpdateDTO : DeviceDTO
 {
+    public DeviceUpdateDTO() { }
+
+    public DeviceUpdateDTO(Device device)
+    {
+        Name = device.Name;
+        Description = device.Description;
+    }
+
     public void UpdateDeviceInfo(Device device)
     {
         device.Name = Name;

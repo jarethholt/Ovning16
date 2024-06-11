@@ -12,15 +12,20 @@ public partial class EditDevice
     [Parameter]
     public Guid DeviceGuid { get; set; }
 
+    [SupplyParameterFromForm]
+    public DeviceUpdateDTO DeviceUpdateDTO { get; set; } = null!;
+
     public Device? Device { get; set; }
-    public bool? DeviceFound { get; set; } = null;
 
     protected override void OnInitialized()
     {
         Device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        DeviceFound = (Device is not null);
+        DeviceUpdateDTO = Device is null ? new() : new(Device);
     }
 
-    protected override void OnAfterRender(bool firstRender)
-        => DeviceFound = (Device is null);
+    public void HandleSubmit()
+    {
+        if (Device is not null)
+            DeviceDataService.UpdateDevice(Device, DeviceUpdateDTO);
+    }
 }
