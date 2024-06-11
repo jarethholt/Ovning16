@@ -81,13 +81,13 @@ public class DeviceDataService : IDeviceDataService
         return [d1, d2, d3, d4, d5, d6, d7];
     }
 
-    public Device AddDevice(Device device)
+    public Device AddDevice(DeviceAddDTO deviceDTO)
     {
         // Update the device's ID
         int nextId = Devices.Select(d => d.DeviceId).Max() + 1;
-        device.DeviceId = nextId;
+        Device device = deviceDTO.ToDevice(nextId);
         Devices.Add(device);
-        return Devices[^1];
+        return device;
     }
 
     public void DeleteDevice(Device device) =>
@@ -105,15 +105,9 @@ public class DeviceDataService : IDeviceDataService
     public IEnumerable<Device> GetDevices() =>
         Devices;
 
-    public Device? UpdateDevice(Device device)
+    public Device UpdateDevice(Device device, DeviceUpdateDTO deviceDTO)
     {
-        Device? found = Devices.FirstOrDefault(d => d.DeviceGuid == device.DeviceGuid);
-        if (found is null)
-            return null;
-
-        found.DeviceId = device.DeviceId;
-        found.Name = device.Name;
-        found.Description = device.Description;
-        return found;
+        deviceDTO.UpdateDeviceInfo(device);
+        return device;
     }
 }

@@ -8,7 +8,7 @@ public interface IDeviceDataService
     public Device? GetDeviceById(int id);
     public Device? GetDeviceByGuid(Guid guid);
     public Device? GetDeviceByGuid(string guidString);
-    public Device AddDevice(Device device);
-    public Device? UpdateDevice(Device device);
+    public Device AddDevice(DeviceAddDTO deviceDTO);
+    public Device UpdateDevice(Device device, DeviceUpdateDTO deviceDTO);
     public void DeleteDevice(Device device);
 }
