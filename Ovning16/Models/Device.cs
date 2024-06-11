@@ -11,7 +11,7 @@ public class Device
     public string Description { get; set; } = string.Empty;
     public bool IsOnline { get; set; }
 
-    // Navigation properties
+    // Navigation property
     public List<DateTime> UpdateEvents { get; set; } = [];
 
     public DateTime MostRecentUpdate =>
@@ -19,6 +19,9 @@ public class Device
 
     public TimeSpan TimeSinceUpdate =>
         DateTime.UtcNow - MostRecentUpdate;
+
+    public string ShortGuid =>
+        $"{DeviceGuid.ToString()[..4]}...{DeviceGuid.ToString()[^4..]}";
 
     public string FormattedUpdateTime()
     {
