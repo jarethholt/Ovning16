@@ -29,7 +29,7 @@ public partial class DeleteDevice
         }
     }
 
-    public void HandleSubmit()
+    public void HandleDelete()
     {
         DeviceDataService.DeleteDevice(Device);
         Saved = true;

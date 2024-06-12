@@ -1,49 +1,60 @@
 ﻿@page "/editdevice/{DeviceGuid:guid}"
 @rendermode InteractiveServer
 
-<h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Edit instrument details</h4>
-
-@if (Device is null)
+@if (!FinishedSearch)
 {
     <p><em>Loading...</em></p>
 }
+else if (!FoundDevice)
+{
+    <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
+    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+}
 else if (!Saved)
 {
-    <EditForm Enhance Model="DeviceUpdateDTO" FormName="EditDeviceForm" OnSubmit="@HandleSubmit">
-        <div class="row mb-3 align-items-center">
-            <label for="guid" class="col-form-label col-sm-2">Device ID: </label>
-            <div class="col-sm-10">
-                <input type="text" disabled id="guid" class="form-control" value="@Device.DeviceGuid" />
+    <div class="container-fluid">
+        <h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Edit instrument details</h4>
+        <EditForm Enhance id="EditDeviceForm" Model="DeviceUpdateDTO" FormName="EditDeviceForm" OnSubmit="@HandleSubmit">
+            <div class="row mb-3 align-items-center">
+                <label for="guid" class="col-form-label col-sm-2">Device ID: </label>
+                <div class="col-sm-10">
+                    <input type="text" disabled id="guid" class="form-control" value="@Device.DeviceGuid" />
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-3 align-items-center">
-            <label for="name" class="col-form-label col-sm-2">Name: </label>
-            <div class="col-sm-10">
-                <InputText id="name" class="form-control" @bind-Value="@DeviceUpdateDTO.Name" placeholder="@Device.Name"></InputText>
+            <div class="row mb-3 align-items-center">
+                <label for="name" class="col-form-label col-sm-2">Name: </label>
+                <div class="col-sm-10">
+                    <InputText id="name" class="form-control" @bind-Value="@DeviceUpdateDTO.Name" placeholder="@Device.Name"></InputText>
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-3 align-items-center">
-            <label for="description" class="col-form-label col-sm-2">Description: </label>
-            <div class="col-sm-10">
-                <InputText id="description" class="form-control" @bind-Value="@DeviceUpdateDTO.Description" placeholder="@Device.Description"></InputText>
+            <div class="row mb-3 align-items-center">
+                <label for="description" class="col-form-label col-sm-2">Description: </label>
+                <div class="col-sm-10">
+                    <InputText id="description" class="form-control" @bind-Value="@DeviceUpdateDTO.Description" placeholder="@Device.Description"></InputText>
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-3 align-items-center">
-            <label for="isOnline" class="col-form-label col-sm-2">sm-2tatus: </label>
-            <div class="col-sm-10">
-                <input type="checkbox" disabled id="isOnline" class="form-check-input" checked="@Device.IsOnline" />
+            <div class="row mb-3 align-items-center">
+                <label for="isOnline" class="col-form-label col-sm-2">Status: </label>
+                <div class="col-sm-10">
+                    <input type="checkbox" disabled id="isOnline" class="form-check-input" checked="@Device.IsOnline" />
+                </div>
             </div>
-        </div>
+        </EditForm>
 
-        <button type="submit" class="btn btn-primary">Save details</button>
-    </EditForm>
+        <div class="container-fluid mt-2">
+            <button type="submit" form="EditDeviceForm" class="btn btn-primary">Save details</button>
+            <a class="btn btn-outline-primary" href="@($"editdevice/{Device.DeviceGuid}")">Edit device</a>
+            <a class="btn btn-outline-primary" href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</a>
+            <a class="btn btn-outline-primary" href="/">Back to overview</a>
+        </div>
+    </div>
 }
 else
 {
-    <div class="alert alert-success">Device successfully updated</div>
+    <div class="alert alert-success mt-3 mb-3">Device successfully updated</div>
 
     <a class="btn btn-outline btn-primary" href="@($"devicedetails/{Device.DeviceGuid}")">Device details</a>
     <a class="btn btn-outline btn-primary" href="/">Back to overview</a>

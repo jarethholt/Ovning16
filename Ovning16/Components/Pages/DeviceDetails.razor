@@ -11,8 +11,8 @@ else if (!FoundDevice)
 }
 else
 {
-    <div class="container">
-        <h3 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Instrument details</h3>
+    <div class="container-fluid">
+        <h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Instrument details</h4>
         <table class="table table-sm align-middle">
             <tbody>
                 <tr>
@@ -48,13 +48,13 @@ else
         </table>
     </div>
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-2">
         <a class="btn btn-outline-primary" href="@($"editdevice/{Device.DeviceGuid}")">Edit device</a>
         <a class="btn btn-outline-primary" href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</a>
         <a class="btn btn-outline-primary" href="/">Back to overview</a>
     </div>
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-3">
         <h4 class="text-light-emphasis ms-4 mb-2">Device connection history</h4>
         @if (!Device.HasBeenConnected)
         {
