@@ -49,6 +49,12 @@ else
     </div>
 
     <div class="container mt-5">
+        <a class="btn btn-outline btn-primary" href="@($"editdevice/{Device.DeviceGuid}")">Edit device</a>
+        <a class="btn btn-outline btn-primary" href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</a>
+        <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+    </div>
+
+    <div class="container mt-5">
         <h4 class="text-light-emphasis ms-4 mb-2">Device connection history</h4>
         @if (!Device!.HasBeenConnected)
         {
