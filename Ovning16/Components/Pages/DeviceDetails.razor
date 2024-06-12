@@ -1,10 +1,10 @@
 ﻿@page "/devicedetails/{DeviceGuid:guid}"
 
-@if (DeviceFound is null)
+@if (!FinishedSearch)
 {
     <p><em>Loading...</em></p>
 }
-else if (DeviceFound is false)
+else if (!FoundDevice)
 {
     <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
     <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
@@ -17,30 +17,30 @@ else
             <tbody>
                 <tr>
                     <td>Name</td>
-                    <td>@Device!.Name</td>
+                    <td>@Device.Name</td>
                 </tr>
                 <tr>
                     <td>Id</td>
-                    <td class="font-monospace">@Device!.DeviceGuid</td>
+                    <td class="font-monospace">@Device.DeviceGuid</td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td>@Device!.Description</td>
+                    <td>@Device.Description</td>
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td>@Device!.IsOnline</td>
+                    <td>@Device.IsOnline</td>
                 </tr>
                 <tr>
                     <td>Last connection</td>
-                    @if (!Device!.HasBeenConnected)
+                    @if (!Device.HasBeenConnected)
                     {
                         <td>Never connected</td>
                     }
                     else
                     {
                         <td>
-                            @Device!.FormatLastConnectionTime() (@Device!.FormatTimeSinceLastConnection() ago)
+                            @Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)
                         </td>
                     }
                 </tr>
@@ -49,14 +49,14 @@ else
     </div>
 
     <div class="container mt-5">
-        <a class="btn btn-outline btn-primary" href="@($"editdevice/{Device.DeviceGuid}")">Edit device</a>
-        <a class="btn btn-outline btn-primary" href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</a>
-        <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+        <a class="btn btn-outline-primary" href="@($"editdevice/{Device.DeviceGuid}")">Edit device</a>
+        <a class="btn btn-outline-primary" href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</a>
+        <a class="btn btn-outline-primary" href="/">Back to overview</a>
     </div>
 
     <div class="container mt-5">
         <h4 class="text-light-emphasis ms-4 mb-2">Device connection history</h4>
-        @if (!Device!.HasBeenConnected)
+        @if (!Device.HasBeenConnected)
         {
             <p>This device has never been connected to.</p>
         }
@@ -64,7 +64,7 @@ else
         {
             <table class="table table-striped">
                 <tbody>
-                    @foreach (var connectionTime in Device!.ConnectionEvents)
+                    @foreach (var connectionTime in Device.ConnectionEvents)
                     {
                         <tr>
                             <td>@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</td>

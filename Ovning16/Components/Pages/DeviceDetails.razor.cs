@@ -12,12 +12,19 @@ public partial class DeviceDetails
     [Parameter]
     public Guid DeviceGuid { get; set; }
 
-    public Device? Device { get; set; }
-    public bool? DeviceFound { get; set; } = null;
+    public Device Device { get; set; } = new();
+    protected bool FinishedSearch { get; set; } = false;
+    private Device? _device;
+    protected bool FoundDevice { get; set; } = false;
 
     protected override void OnInitialized()
     {
-        Device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        DeviceFound = (Device is not null);
+        _device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
+        FinishedSearch = true;
+        if (_device is not null)
+        {
+            FoundDevice = true;
+            Device = _device;
+        }
     }
 }

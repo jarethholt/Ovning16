@@ -1,13 +1,18 @@
 ﻿@page "/deletedevice/{DeviceGuid:guid}"
 @rendermode InteractiveServer
 
-@if (Device is null)
+@if (!FinishedSearch)
 {
     <p><em>Loading...</em></p>
 }
+else if (!FoundDevice)
+{
+    <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
+    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+}
 else if (!Saved)
 {
-    <h3>Device details</h3>
+    <h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Device details</h4>
 
     <table>
         <tbody>
@@ -41,13 +46,14 @@ else if (!Saved)
         </tbody>
     </table>
 
-    <button type="submit" class="btn btn-danger" @onclick="@HandleSubmit">Delete device?</button>
-    <button type="button" class="btn btn-outline-primary" @onclick="@BackToOverview">Devices overview</button>
-    <button type="button" class="btn btn-outline-primary" @onclick="@ToEditDevice">Edit device</button>
+    <button type="submit" class="btn btn-danger" @onclick="@HandleSubmit">Delete device</button>
+    <a class="btn btn-outline-primary" href="@($"/devicedetails/{Device.DeviceGuid}")">Device details</a>
+    <a class="btn btn-outline-primary" href="@($"/editdevice/{Device.DeviceGuid}")">Edit device</a>
+    <a class="btn btn-outline-primary" href="/">Back to overview</a>
 }
 else
 {
-    <div class="alert alert-success">"Device successfully deleted"</div>
+    <div class="alert alert-success mt-5 mb-5">Device successfully deleted</div>
 
-    <button type="button" class="btn btn-outline-primary" @onclick="@BackToOverview">Back to device overview</button>
+    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
 }

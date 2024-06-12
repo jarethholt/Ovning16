@@ -9,23 +9,24 @@ public partial class DeleteDevice
     [Inject]
     public IDeviceDataService DeviceDataService { get; set; } = null!;
 
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = null!;
-
     [Parameter]
     public Guid DeviceGuid { get; set; }
 
-    public Device Device { get; set; } = null!;
-
+    public Device Device { get; set; } = new();
+    protected bool FinishedSearch { get; set; } = false;
+    private Device? _device { get; set; }
+    protected bool FoundDevice { get; set; } = false;
     protected bool Saved = false;
 
     protected override void OnInitialized()
     {
-        var device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        if (device is null)
-            NavigationManager.NavigateTo("/devicenotfound");
-
-        Device = device!;
+        _device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
+        FinishedSearch = true;
+        if (_device is not null)
+        {
+            FoundDevice = true;
+            Device = _device;
+        }
     }
 
     public void HandleSubmit()
@@ -33,10 +34,4 @@ public partial class DeleteDevice
         DeviceDataService.DeleteDevice(Device);
         Saved = true;
     }
-
-    public void BackToOverview() =>
-        NavigationManager.NavigateTo("/");
-
-    public void ToEditDevice() =>
-        NavigationManager.NavigateTo($"/editdevice/{Device.DeviceGuid}");
 }
