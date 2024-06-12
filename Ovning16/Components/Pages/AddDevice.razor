@@ -1,39 +1,37 @@
 ﻿@page "/adddevice"
 
-<h3>Add new device</h3>
+<h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Add new device</h4>
 
 @if(Device is null){
-    <section>
-        <EditForm Enhance Model="DeviceAddDTO" FormName="AddDeviceForm" OnSubmit="@HandleSubmit">
-            <div class="row">
-                <label for="name" class="col-form-label col-3 text-right">Name: </label>
-                <div class="col-8">
-                    <InputText id="name" class="form-control col-8" @bind-Value="@DeviceAddDTO.Name" placeholder="Name of the new device"></InputText>
-                </div>
+    <EditForm Enhance Model="DeviceAddDTO" FormName="AddDeviceForm" OnSubmit="@HandleSubmit">
+        <div class="row mb-3 align-items-center">
+            <label for="name" class="col-sm-2 col-form-label">Name: </label>
+            <div class="col-sm-10">
+                <InputText id="name" class="form-control" @bind-Value="@DeviceAddDTO.Name" placeholder="Name of the new device"></InputText>
             </div>
+        </div>
 
-            <div class="row">
-                <label for="description" class="col-form-label col-3 text-right">Description: </label>
-                <div class="col-8">
-                    <InputText id="description" class="form-control col-8" @bind-Value="@DeviceAddDTO.Description" placeholder="Description of the device"></InputText>
-                </div>
+        <div class="row mb-3 align-items-center">
+            <label for="description" class="col-sm-2 col-form-label">Description: </label>
+            <div class="col-sm-10">
+                <InputTextArea rows="3" id="description" class="form-control" @bind-Value="@DeviceAddDTO.Description" placeholder="Description of the device"></InputTextArea>
             </div>
+        </div>
 
-            <div class="row">
-                <label for="isOnline" class="col-form-label col-3 text-right">Device starts online: </label>
-                <div class="col-8">
-                    <InputCheckbox id="isOnline" class="form-check-input" @bind-Value="@DeviceAddDTO.StartsOnline"></InputCheckbox>
-                </div>
+        <div class="row mb-3 align-items-center">
+            <label for="isOnline" class="col-sm-2 col-form-label">Device starts online: </label>
+            <div class="col-sm-10">
+                <InputCheckbox id="isOnline" class="form-check-input" @bind-Value="@DeviceAddDTO.StartsOnline"></InputCheckbox>
             </div>
+        </div>
 
-            <button type="submit" class="btn btn-primary">Create device</button>
-        </EditForm>
-    </section>
+        <button type="submit" class="btn btn-primary">Create device</button>
+    </EditForm>
 }
 else
 {
     <div class="alert alert-success">Device successfully created</div>
 
-    <a class="btn-outline btn-primary" href="@($"devicedetails/{Device.DeviceGuid}")">Device details</a>
-    <a class="btn-outline btn-primary" href="/">Back to overview</a>
+    <a class="btn btn-outline btn-primary" href="@($"devicedetails/{Device.DeviceGuid}")">Device details</a>
+    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
 }

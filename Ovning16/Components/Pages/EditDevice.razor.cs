@@ -37,7 +37,4 @@ public partial class EditDevice
         DeviceDataService.UpdateDevice(Device, DeviceUpdateDTO);
         Saved = true;
     }
-
-    public void BackToOverview() =>
-        NavigationManager.NavigateTo("/");
 }

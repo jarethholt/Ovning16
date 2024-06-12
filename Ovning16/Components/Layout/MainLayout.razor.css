@@ -2,10 +2,6 @@ header {
     background-color: var(--bs-cyan);
 }
 
-main {
-    background-color: var(--bs-gray-200);
-}
-
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

@@ -2,64 +2,67 @@
 
 <PageTitle>AWIPEV Atmosphere Observatory</PageTitle>
 
-<h1>Instrument details</h1>
-
 @if (Device is null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table>
-        <tbody>
-            <tr>
-                <td>Name</td>
-                <td>@Device.Name</td>
-            </tr>
-            <tr>
-                <td>Id</td>
-                <td>@Device.DeviceGuid</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>@Device.Description</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>@Device.IsOnline</td>
-            </tr>
-            <tr>
-                <td>Last connection</td>
-                @if (!Device.HasBeenConnected)
-                {
-                    <td>Never connected</td>
-                }
-                else
-                {
-                    <td>
-                        @Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)
-                    </td>
-                }
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>Device connection history</h3>
-    @if (!Device.HasBeenConnected)
-    {
-        <p>This device has never been connected to.</p>
-    }
-    else
-    {
-        <table>
+    <div class="container">
+        <h3 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Instrument details</h3>
+        <table class="table table-sm align-middle">
             <tbody>
-                @foreach (var connectionTime in Device.ConnectionEvents)
-                {
-                    <tr>
-                        <td>@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</td>
-                    </tr>
-                }
+                <tr>
+                    <td>Name</td>
+                    <td>@Device.Name</td>
+                </tr>
+                <tr>
+                    <td>Id</td>
+                    <td class="font-monospace">@Device.DeviceGuid</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>@Device.Description</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>@Device.IsOnline</td>
+                </tr>
+                <tr>
+                    <td>Last connection</td>
+                    @if (!Device.HasBeenConnected)
+                    {
+                        <td>Never connected</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)
+                        </td>
+                    }
+                </tr>
             </tbody>
         </table>
-    }
+    </div>
+
+    <div class="container mt-5">
+        <h4 class="text-light-emphasis ms-4 mb-2">Device connection history</h4>
+        @if (!Device.HasBeenConnected)
+        {
+            <p>This device has never been connected to.</p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <tbody>
+                    @foreach (var connectionTime in Device.ConnectionEvents)
+                    {
+                        <tr>
+                            <td>@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
 }
