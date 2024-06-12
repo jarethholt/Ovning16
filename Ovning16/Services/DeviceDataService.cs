@@ -23,7 +23,6 @@ public class DeviceDataService : IDeviceDataService
     {
         Device d1 = new()
         {
-            DeviceId = 1,
             Name = "Weather mast",
             Description = "Standard weather mast with temperature, humidity, and wind sensors",
             IsOnline = true,
@@ -31,7 +30,6 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d2 = new()
         {
-            DeviceId = 2,
             Name = "Surface radiometer",
             Description = "Pyranometers measuring upward and downward radiation",
             IsOnline = true,
@@ -39,7 +37,6 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d3 = new()
         {
-            DeviceId = 3,
             Name = "Ceilometer",
             Description = "Laser used to detect cloud base height",
             IsOnline = false,
@@ -47,7 +44,6 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d4 = new()
         {
-            DeviceId = 4,
             Name = "Radiosonde",
             Description = "Weather balloon with attached Vaisala instrument",
             IsOnline = true,
@@ -55,7 +51,6 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d5 = new()
         {
-            DeviceId = 5,
             Name = "Doppler Lidar (WindCube)",
             Description = "Lidar using particles to determine wind profiles",
             IsOnline = false,
@@ -63,7 +58,6 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d6 = new()
         {
-            DeviceId = 6,
             Name = "Microwave radiometer (HATPRO)",
             Description = "Passive microwave radiometer for measuring liquid and ice water",
             IsOnline = true,
@@ -71,7 +65,6 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d7 = new()
         {
-            DeviceId = 7,
             Name = "Laser disdrometer (Parsivel)",
             Description = "Laser determining size and speed of falling precipitation",
             IsOnline = false,
@@ -81,14 +74,8 @@ public class DeviceDataService : IDeviceDataService
         return [d1, d2, d3, d4, d5, d6, d7];
     }
 
-    public Device AddDevice(DeviceAddDTO deviceDTO)
-    {
-        // Update the device's ID
-        int nextId = Devices.Select(d => d.DeviceId).Max() + 1;
-        Device device = deviceDTO.ToDevice(nextId);
-        Devices.Add(device);
-        return device;
-    }
+    public void AddDevice(DeviceAddDTO deviceDTO) =>
+        Devices.Add(deviceDTO.ToDevice());
 
     public void DeleteDevice(Device device) =>
         Devices.Remove(device);
@@ -98,9 +85,6 @@ public class DeviceDataService : IDeviceDataService
 
     public Device? GetDeviceByGuid(string guidString) =>
         Devices.FirstOrDefault(d => d.DeviceGuid == Guid.Parse(guidString));
-
-    public Device? GetDeviceById(int id) =>
-        Devices.FirstOrDefault(d => d.DeviceId == id);
 
     public IEnumerable<Device> GetDevices() =>
         Devices;

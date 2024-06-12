@@ -5,10 +5,9 @@ namespace Ovning16.Contracts.Services;
 public interface IDeviceDataService
 {
     public IEnumerable<Device> GetDevices();
-    public Device? GetDeviceById(int id);
     public Device? GetDeviceByGuid(Guid guid);
     public Device? GetDeviceByGuid(string guidString);
-    public Device AddDevice(DeviceAddDTO deviceDTO);
+    public void AddDevice(DeviceAddDTO deviceDTO);
     public Device UpdateDevice(Device device, DeviceUpdateDTO deviceDTO);
     public void DeleteDevice(Device device);
 }
