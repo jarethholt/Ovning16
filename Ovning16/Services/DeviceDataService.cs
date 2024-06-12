@@ -74,8 +74,12 @@ public class DeviceDataService : IDeviceDataService
         return [d1, d2, d3, d4, d5, d6, d7];
     }
 
-    public void AddDevice(DeviceAddDTO deviceDTO) =>
-        Devices.Add(deviceDTO.ToDevice());
+    public Device AddDevice(DeviceAddDTO deviceDTO)
+    {
+        Device device = deviceDTO.ToDevice();
+        Devices.Add(device);
+        return device;
+    }
 
     public void DeleteDevice(Device device) =>
         Devices.Remove(device);

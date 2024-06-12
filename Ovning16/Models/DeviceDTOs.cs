@@ -25,14 +25,17 @@ public class DeviceUpdateDTO : DeviceDTO
 
 public class DeviceAddDTO : DeviceDTO
 {
-    public bool IsOnline { get; set; }
-    public List<DateTime> UpdateEvents { get; set; } = [];
+    public bool StartsOnline { get; set; }
 
-    public Device ToDevice() => new()
+    public Device ToDevice()
     {
-        Name = Name,
-        Description = Description,
-        IsOnline = IsOnline,
-        ConnectionEvents = UpdateEvents
-    };
+        List<DateTime> connectionEvents = StartsOnline ? [DateTime.UtcNow] : new();
+        return new()
+        {
+            Name = Name,
+            Description = Description,
+            IsOnline = StartsOnline,
+            ConnectionEvents = connectionEvents
+        };
+    }
 }
