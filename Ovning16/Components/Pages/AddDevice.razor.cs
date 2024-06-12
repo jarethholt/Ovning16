@@ -9,9 +9,20 @@ public partial class AddDevice
     [Inject]
     public IDeviceDataService DeviceDataService { get; set; } = null!;
 
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
     [SupplyParameterFromForm]
     public DeviceAddDTO DeviceAddDTO { get; set; } = new();
 
+    public Device? Device { get; set; } = null;
+
     public void HandleSubmit() =>
-        _ = DeviceDataService.AddDevice(DeviceAddDTO);
+        Device = DeviceDataService.AddDevice(DeviceAddDTO);
+
+    public void BackToOverview() =>
+        NavigationManager.NavigateTo("/");
+
+    public void ToDetails() =>
+        NavigationManager.NavigateTo($"/devicedetails/{Device!.DeviceGuid}");
 }
