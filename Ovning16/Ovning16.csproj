@@ -6,20 +6,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Components\Pages\DeviceNotFound.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Components\Pages\DeviceNotFound.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Components\Pages\DeviceNotFound.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Components\Pages\DeviceNotFound.razor" />
-  </ItemGroup>
-
 </Project>

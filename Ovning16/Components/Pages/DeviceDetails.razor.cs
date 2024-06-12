@@ -9,18 +9,15 @@ public partial class DeviceDetails
     [Inject]
     public IDeviceDataService DeviceDataService { get; set; } = null!;
 
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = null!;
-
     [Parameter]
     public Guid DeviceGuid { get; set; }
 
     public Device? Device { get; set; }
+    public bool? DeviceFound { get; set; } = null;
 
     protected override void OnInitialized()
     {
         Device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        if (Device is null)
-            NavigationManager.NavigateTo("/devicenotfound");
+        DeviceFound = (Device is not null);
     }
 }
