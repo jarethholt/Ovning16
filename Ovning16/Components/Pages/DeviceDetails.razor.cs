@@ -14,24 +14,15 @@ public partial class DeviceDetails
     public Guid DeviceGuid { get; set; }
 
     public Device Device { get; set; } = new();
-    protected bool FinishedSearch { get; set; } = false;
-    private Device? _device;
-    protected bool FoundDevice { get; set; } = false;
 
     protected IQueryable<DateTime>? itemsQueryable;
     protected int queryableCount = 0;
     public PaginationState pagination = new() { ItemsPerPage = 10 };
 
-    protected override void OnInitialized()
+    protected void SetDevice(Device device)
     {
-        _device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        FinishedSearch = true;
-        if (_device is not null)
-        {
-            FoundDevice = true;
-            Device = _device;
-            itemsQueryable = Device.ConnectionEvents.AsQueryable().OrderByDescending(dt => dt);
-            queryableCount = itemsQueryable.Count();
-        }
+        Device = device;
+        itemsQueryable = Device.ConnectionEvents.AsQueryable().OrderByDescending(dt => dt);
+        queryableCount = itemsQueryable.Count();
     }
 }

@@ -1,0 +1,16 @@
+﻿
+@rendermode InteractiveServer
+
+@if (!FinishedSearch)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!FoundDevice)
+{
+    <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
+    <LinkButton Href="/">Back to overview</LinkButton>
+}
+else
+{
+    @ChildContent
+}

@@ -1,18 +1,9 @@
 ﻿@page "/deletedevice/{DeviceGuid:guid}"
 @rendermode InteractiveServer
 
-@if (!FinishedSearch)
-{
-    <p><em>Loading...</em></p>
-}
-else if (!FoundDevice)
-{
-    <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
-    <LinkButton Href="/">Back to overview</LinkButton>
-}
-else if (!Saved)
-{
-    <MainHeader>Delete this device?</MainHeader>
+<div class="container-fluid">
+<MainHeader>Delete this device?</MainHeader>
+<LookForDevice DeviceDataService="@DeviceDataService" DeviceGuid="@DeviceGuid" SetDevice="@SetDevice">
 
     <table class="table table-sm align-middle mb-3">
         <tbody>
@@ -54,10 +45,6 @@ else if (!Saved)
     <LinkButton Href="@($"/devicedetails/{Device.DeviceGuid}")">Device details</LinkButton>
     <LinkButton Href="@($"/editdevice/{Device.DeviceGuid}")">Edit device</LinkButton>
     <LinkButton Href="/">Back to overview</LinkButton>
-}
-else
-{
-    <div class="alert alert-success mt-3 mb-3">Device successfully deleted</div>
 
-    <LinkButton Href="/">Back to overview</LinkButton>
-}
+</LookForDevice>
+</div>

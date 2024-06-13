@@ -13,21 +13,11 @@ public partial class DeleteDevice
     public Guid DeviceGuid { get; set; }
 
     public Device Device { get; set; } = new();
-    protected bool FinishedSearch { get; set; } = false;
-    private Device? _device { get; set; }
-    protected bool FoundDevice { get; set; } = false;
-    protected bool Saved = false;
 
-    protected override void OnInitialized()
-    {
-        _device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        FinishedSearch = true;
-        if (_device is not null)
-        {
-            FoundDevice = true;
-            Device = _device;
-        }
-    }
+    protected void SetDevice(Device device) =>
+        Device = device;
+
+    protected bool Saved = false;
 
     public void HandleDelete()
     {

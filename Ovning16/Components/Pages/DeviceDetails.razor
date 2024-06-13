@@ -2,57 +2,47 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.QuickGrid
 
-@if (!FinishedSearch)
-{
-    <p><em>Loading...</em></p>
-}
-else if (!FoundDevice)
-{
-    <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
-    <LinkButton Href="/">Back to overview</LinkButton>
-}
-else
-{
-    <div class="container-fluid">
-        <MainHeader>Instrument details</MainHeader>
-        <table class="table table-sm align-middle">
-            <tbody>
-                <tr>
-                    <td>Name</td>
-                    <td>@Device.Name</td>
-                </tr>
-                <tr>
-                    <td>Nickname</td>
-                    <td>@(Device.NickName is null ? string.Empty : Device.NickName)</td>
-                </tr>
-                <tr>
-                    <td>Id</td>
-                    <td class="font-monospace">@Device.DeviceGuid</td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td>@Device.Description</td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td><StatusBadge Status="@Device.IsOnline" /></td>
-                </tr>
-                <tr>
-                    <td>Last connection</td>
-                    @if (!Device.HasBeenConnected)
-                    {
-                        <td>Never connected</td>
-                    }
-                    else
-                    {
-                        <td>
-                            <span class="font-monospace">@Device.FormatLastConnectionTime()</span> (@Device.FormatTimeSinceLastConnection() ago)
-                        </td>
-                    }
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container-fluid">
+<MainHeader>Instrument details</MainHeader>
+<LookForDevice DeviceDataService="@DeviceDataService" DeviceGuid="@DeviceGuid" SetDevice="@SetDevice">
+
+    <table class="table table-sm align-middle">
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>@Device.Name</td>
+            </tr>
+            <tr>
+                <td>Nickname</td>
+                <td>@(Device.NickName is null ? string.Empty : Device.NickName)</td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td class="font-monospace">@Device.DeviceGuid</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>@Device.Description</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><StatusBadge Status="@Device.IsOnline" /></td>
+            </tr>
+            <tr>
+                <td>Last connection</td>
+                @if (!Device.HasBeenConnected)
+                {
+                    <td>Never connected</td>
+                }
+                else
+                {
+                    <td>
+                        <span class="font-monospace">@Device.FormatLastConnectionTime()</span> (@Device.FormatTimeSinceLastConnection() ago)
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
 
     <div class="container-fluid mt-2">
         <LinkButton Href="@($"editdevice/{Device.DeviceGuid}")">Edit device</LinkButton>
@@ -61,7 +51,7 @@ else
     </div>
 
     <div class="container-fluid mt-3">
-        <h4 class="text-light-emphasis ms-4 mb-2">Device connection history</h4>
+        <MainHeader>Device connection history</MainHeader>
         @if (queryableCount == 0)
         {
             <p>This device has never been connected to.</p>
@@ -75,4 +65,6 @@ else
             <Paginator State="@pagination" />
         }
     </div>
-}
+
+</LookForDevice>
+</div>

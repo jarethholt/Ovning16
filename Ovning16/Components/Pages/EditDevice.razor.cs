@@ -13,25 +13,17 @@ public partial class EditDevice
     public Guid DeviceGuid { get; set; }
 
     [SupplyParameterFromForm]
-    public DeviceUpdateDTO DeviceUpdateDTO { get; set; } = null!;
+    public DeviceUpdateDTO DeviceUpdateDTO { get; set; } = new();
 
-    public Device Device { get; set; } = null!;
-    protected bool FinishedSearch { get; set; } = false;
-    protected bool FoundDevice { get; set; } = false;
-    private Device? _device;
-    protected bool Saved = false;
+    public Device Device { get; set; } = new();
 
-    protected override void OnInitialized()
+    protected void SetDevice(Device device)
     {
-        _device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
-        FinishedSearch = true;
-        if (_device is not null)
-        {
-            FoundDevice = true;
-            Device = _device;
-            DeviceUpdateDTO = new(Device);
-        }
+        Device = device;
+        DeviceUpdateDTO = new(Device);
     }
+
+    protected bool Saved = false;
 
     public void HandleSubmit()
     {

@@ -1,6 +1,7 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 
+<div class="container-fluid">
 <MainHeader>Overview of Devices</MainHeader>
 
 @if (Devices is null)
@@ -9,73 +10,73 @@
 }
 else
 {
-    <div class="container">
-        <table class="table table-sm table-hover table-bordered border-primary align-middle">
-            <colgroup>
-                <col span="1" style="width:5rem" />
-                <col span="1" style="width:12rem" />
-                <col span="1" style="width:5rem" />
-                <col span="1" style="width:12rem" />
-                <col span="1" style="width:6rem" />
-                <col span="1" style="width:5rem" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name (Nickname)</th>
-                    <th class="text-center">Status</th>
-                    <th>Last connected</th>
-                    <th class="text-center">Actions</th>
-                    <th class="text-center">Links</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var device in Devices)
-                {
-                    <tr class="align-items-center">
-                        <td class="text-monospace">@device.ShortGuid</td>
+    <table class="table table-sm table-hover table-bordered border-primary align-middle">
+        <colgroup>
+            <col span="1" style="width:5rem" />
+            <col span="1" style="width:12rem" />
+            <col span="1" style="width:5rem" />
+            <col span="1" style="width:12rem" />
+            <col span="1" style="width:6rem" />
+            <col span="1" style="width:5rem" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name (Nickname)</th>
+                <th class="text-center">Status</th>
+                <th>Last connected</th>
+                <th class="text-center">Actions</th>
+                <th class="text-center">Links</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in Devices)
+            {
+                <tr class="align-items-center">
+                    <td class="text-monospace">@device.ShortGuid</td>
+                    <td>
+                        <div class="vstack">
+                            <span>@device.Name</span>
+                            @if (!string.IsNullOrWhiteSpace(device.NickName))
+                            {
+                                <span>(@device.NickName)</span>
+                            }
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <StatusBadge Status="@device.IsOnline" />
+                    </td>
+                    @if (device.HasBeenConnected)
+                    {
                         <td>
                             <div class="vstack">
-                                <span>@device.Name</span>
-                                @if (!string.IsNullOrWhiteSpace(device.NickName))
-                                {
-                                    <span>(@device.NickName)</span>
-                                }
+                                <span class="font-monospace">@device.FormatLastConnectionTime()</span>
+                                <span>@device.FormatTimeSinceLastConnection() ago</span>
                             </div>
                         </td>
-                        <td class="text-center">
-                            <StatusBadge Status="@device.IsOnline" />
-                        </td>
-                        @if (device.HasBeenConnected)
-                        {
-                            <td>
-                                <div class="vstack">
-                                    <span class="font-monospace">@device.FormatLastConnectionTime()</span>
-                                    <span>@device.FormatTimeSinceLastConnection() ago</span>
-                                </div>
-                            </td>
                         
-                        }
-                        else
-                        {
-                            <td>Never connected</td>
-                        }
-                        <td>
-                            <div class="text-center vstack">
-                                <ActionButton OnClick="device.PingDevice">Ping device</ActionButton>
-                                <ActionButton OnClick="device.ToggleStatus">Toggle status</ActionButton>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center vstack">
-                                <LinkButton Href="@($"/devicedetails/{device.DeviceGuid}")">Details</LinkButton>
-                                <LinkButton Href="@($"/editdevice/{device.DeviceGuid}")">Edit</LinkButton>
-                                <LinkButton Href="@($"/deletedevice/{device.DeviceGuid}")">Delete</LinkButton>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                    }
+                    else
+                    {
+                        <td>Never connected</td>
+                    }
+                    <td>
+                        <div class="text-center vstack">
+                            <ActionButton OnClick="device.PingDevice">Ping device</ActionButton>
+                            <ActionButton OnClick="device.ToggleStatus">Toggle status</ActionButton>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-center vstack">
+                            <LinkButton Href="@($"/devicedetails/{device.DeviceGuid}")">Details</LinkButton>
+                            <LinkButton Href="@($"/editdevice/{device.DeviceGuid}")">Edit</LinkButton>
+                            <LinkButton Href="@($"/deletedevice/{device.DeviceGuid}")">Delete</LinkButton>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
+
+</div>
