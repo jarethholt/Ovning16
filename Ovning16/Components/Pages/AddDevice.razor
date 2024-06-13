@@ -1,6 +1,7 @@
 ﻿@page "/adddevice"
+@rendermode InteractiveServer
 
-<h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Add new device</h4>
+<MainHeader>Add new device</MainHeader>
 
 @if(Device is null){
     <EditForm Enhance Model="DeviceAddDTO" FormName="AddDeviceForm" OnSubmit="@HandleSubmit">

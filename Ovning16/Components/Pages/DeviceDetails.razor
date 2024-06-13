@@ -1,4 +1,5 @@
 ﻿@page "/devicedetails/{DeviceGuid:guid}"
+@rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.QuickGrid
 
 @if (!FinishedSearch)
@@ -13,7 +14,7 @@ else if (!FoundDevice)
 else
 {
     <div class="container-fluid">
-        <h4 class="text-start text-light-emphasis ms-4 mt-2 mb-2">Instrument details</h4>
+        <MainHeader>Instrument details</MainHeader>
         <table class="table table-sm align-middle">
             <tbody>
                 <tr>
