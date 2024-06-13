@@ -8,7 +8,7 @@
 else if (!FoundDevice)
 {
     <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
-    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+    <LinkButton Href="/">Back to overview</LinkButton>
 }
 else if (!Saved)
 {
@@ -51,13 +51,13 @@ else if (!Saved)
     </table>
 
     <button type="button" class="btn btn-danger" @onclick="@HandleDelete">Delete device</button>
-    <a class="btn btn-outline-primary" href="@($"/devicedetails/{Device.DeviceGuid}")">Device details</a>
-    <a class="btn btn-outline-primary" href="@($"/editdevice/{Device.DeviceGuid}")">Edit device</a>
-    <a class="btn btn-outline-primary" href="/">Back to overview</a>
+    <LinkButton Href="@($"/devicedetails/{Device.DeviceGuid}")">Device details</LinkButton>
+    <LinkButton Href="@($"/editdevice/{Device.DeviceGuid}")">Edit device</LinkButton>
+    <LinkButton Href="/">Back to overview</LinkButton>
 }
 else
 {
     <div class="alert alert-success mt-3 mb-3">Device successfully deleted</div>
 
-    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+    <LinkButton Href="/">Back to overview</LinkButton>
 }

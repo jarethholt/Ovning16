@@ -1,0 +1,12 @@
+﻿
+@rendermode InteractiveServer
+
+<button class="btn btn-info mt-1 mb-1" @onclick="@OnClick">@ChildContent</button>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public required EventCallback OnClick { get; set; }
+}

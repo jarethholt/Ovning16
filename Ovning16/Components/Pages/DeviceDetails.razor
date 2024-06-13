@@ -8,7 +8,7 @@
 else if (!FoundDevice)
 {
     <div class="alert alert-danger text-center mt-5 mb-5">This device could not be found.</div>
-    <a class="btn btn-outline btn-primary" href="/">Back to overview</a>
+    <LinkButton Href="/">Back to overview</LinkButton>
 }
 else
 {
@@ -54,9 +54,9 @@ else
     </div>
 
     <div class="container-fluid mt-2">
-        <a class="btn btn-outline-primary" href="@($"editdevice/{Device.DeviceGuid}")">Edit device</a>
-        <a class="btn btn-outline-primary" href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</a>
-        <a class="btn btn-outline-primary" href="/">Back to overview</a>
+        <LinkButton Href="@($"editdevice/{Device.DeviceGuid}")">Edit device</LinkButton>
+        <LinkButton Href="@($"deletedevice/{Device.DeviceGuid}")">Delete device</LinkButton>
+        <LinkButton Href="/">Back to overview</LinkButton>
     </div>
 
     <div class="container-fluid mt-3">

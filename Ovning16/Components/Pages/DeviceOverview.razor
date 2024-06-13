@@ -62,15 +62,15 @@ else
                         }
                         <td>
                             <div class="text-center vstack">
-                                <button class="btn btn-info mb-1" @onclick="@(() => device.PingDevice())">Ping device</button>
-                                <button class="btn btn-info" @onclick="@(() => device.ToggleStatus())">Toggle status</button>
+                                <ActionButton OnClick="device.PingDevice">Ping device</ActionButton>
+                                <ActionButton OnClick="device.ToggleStatus">Toggle status</ActionButton>
                             </div>
                         </td>
                         <td>
                             <div class="text-center vstack">
-                                <a class="btn btn-outline-primary mb-1" href="@($"/devicedetails/{device.DeviceGuid}")">Details</a>
-                                <a class="btn btn-outline-primary mb-1" href="@($"/editdevice/{device.DeviceGuid}")">Edit</a>
-                                <a class="btn btn-outline-primary" href="@($"/deletedevice/{device.DeviceGuid}")">Delete</a>
+                                <LinkButton Href="@($"/devicedetails/{device.DeviceGuid}")">Details</LinkButton>
+                                <LinkButton Href="@($"/editdevice/{device.DeviceGuid}")">Edit</LinkButton>
+                                <LinkButton Href="@($"/deletedevice/{device.DeviceGuid}")">Delete</LinkButton>
                             </div>
                         </td>
                     </tr>

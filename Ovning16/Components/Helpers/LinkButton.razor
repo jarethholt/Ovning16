@@ -1,0 +1,11 @@
+﻿
+
+<a class="btn btn-outline-primary mt-1 mb-1" href="@Href">@ChildContent</a>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public required string Href { get; set; }
+}
