@@ -2,13 +2,14 @@
 
 public class Device
 {
-    public const string DateFormat = "yyyy-MM-dd T HH:mm Z";
+    public const string DateFormat = "yyyy-MM-ddTHH:mmZ";
 
     // Primary properties
     // DeviceId should only be used if backed by actual database
     //public int DeviceId { get; set; }
     public Guid DeviceGuid { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
+    public string? NickName { get; set; } = null;
     public string Description { get; set; } = string.Empty;
 
     private bool _isOnline;

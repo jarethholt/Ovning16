@@ -51,24 +51,26 @@ public class DeviceDataService : IDeviceDataService
         };
         Device d5 = new()
         {
-            Name = "Doppler Lidar (WindCube)",
+            Name = "Doppler Lidar",
+            NickName = "WindCube",
             Description = "Lidar using particles to determine wind profiles",
             IsOnline = false,
             ConnectionEvents = [new DateTime(2024, 6, 1), new DateTime(2024, 6, 8)]
         };
         Device d6 = new()
         {
-            Name = "Microwave radiometer (HATPRO)",
+            Name = "Microwave radiometer",
+            NickName = "HATPRO",
             Description = "Passive microwave radiometer for measuring liquid and ice water",
             IsOnline = true,
             ConnectionEvents = [new DateTime(2024, 6, 1), new DateTime(2024, 6, 8)]
         };
         Device d7 = new()
         {
-            Name = "Laser disdrometer (Parsivel)",
+            Name = "Laser disdrometer",
+            NickName = "Parsivel",
             Description = "Laser determining size and speed of falling precipitation",
-            IsOnline = false,
-            ConnectionEvents = []
+            IsOnline = false
         };
 
         return [d1, d2, d3, d4, d5, d6, d7];

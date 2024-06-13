@@ -30,6 +30,13 @@ else if (!Saved)
             </div>
 
             <div class="row mb-3 align-items-center">
+                <label for="name" class="col-form-label col-sm-2">Nickname (optional): </label>
+                <div class="col-sm-10">
+                    <InputText id="name" class="form-control" @bind-Value="@DeviceUpdateDTO.NickName" placeholder="@(Device.NickName is null ? string.Empty : Device.NickName)"></InputText>
+                </div>
+            </div>
+
+            <div class="row mb-3 align-items-center">
                 <label for="description" class="col-form-label col-sm-2">Description: </label>
                 <div class="col-sm-10">
                     <InputText id="description" class="form-control" @bind-Value="@DeviceUpdateDTO.Description" placeholder="@Device.Description"></InputText>

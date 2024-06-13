@@ -13,7 +13,7 @@ else
         <table class="table table-sm table-hover table-bordered border-primary align-middle">
             <colgroup>
                 <col span="1" style="width:5rem" />
-                <col span="1" style="width:auto" />
+                <col span="1" style="width:12rem" />
                 <col span="1" style="width:5rem" />
                 <col span="1" style="width:12rem" />
                 <col span="1" style="width:6rem" />
@@ -22,7 +22,7 @@ else
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Name (Nickname)</th>
                     <th class="text-center">Online?</th>
                     <th>Last connected</th>
                     <th class="text-center">Actions</th>
@@ -34,7 +34,15 @@ else
                 {
                     <tr class="align-items-center">
                         <td class="text-monospace">@device.ShortGuid</td>
-                        <td>@device.Name</td>
+                        <td>
+                            <div class="vstack">
+                                <span>@device.Name</span>
+                                @if (!string.IsNullOrWhiteSpace(device.NickName))
+                                {
+                                    <span>(@device.NickName)</span>
+                                }
+                            </div>
+                        </td>
                         <td class="text-center">@device.IsOnline</td>
                         @if (device.HasBeenConnected)
                         {

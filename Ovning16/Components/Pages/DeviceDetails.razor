@@ -20,6 +20,10 @@ else
                     <td>@Device.Name</td>
                 </tr>
                 <tr>
+                    <td>Nickname</td>
+                    <td>@(Device.NickName is null ? string.Empty : Device.NickName)</td>
+                </tr>
+                <tr>
                     <td>Id</td>
                     <td class="font-monospace">@Device.DeviceGuid</td>
                 </tr>
@@ -40,7 +44,7 @@ else
                     else
                     {
                         <td>
-                            @Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)
+                            <span class="font-monospace">@Device.FormatLastConnectionTime()</span> (@Device.FormatTimeSinceLastConnection() ago)
                         </td>
                     }
                 </tr>
@@ -67,7 +71,9 @@ else
                     @foreach (var connectionTime in Device.ConnectionEvents)
                     {
                         <tr>
-                            <td>@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</td>
+                            <td>
+                                <span class="font-monospace">@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</span>
+                            </td>
                         </tr>
                     }
                 </tbody>

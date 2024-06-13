@@ -25,6 +25,10 @@ else if (!Saved)
                 <td>@Device.Name</td>
             </tr>
             <tr>
+                <td>NickName</td>
+                <td>@(Device.NickName is null ? string.Empty : Device.NickName)</td>
+            </tr>
+            <tr>
                 <td>Description</td>
                 <td>@Device.Description</td>
             </tr>
