@@ -1,4 +1,5 @@
 ﻿@page "/devicedetails/{DeviceGuid:guid}"
+@using Microsoft.AspNetCore.Components.QuickGrid
 
 @if (!FinishedSearch)
 {
@@ -60,24 +61,17 @@ else
 
     <div class="container-fluid mt-3">
         <h4 class="text-light-emphasis ms-4 mb-2">Device connection history</h4>
-        @if (!Device.HasBeenConnected)
+        @if (queryableCount == 0)
         {
             <p>This device has never been connected to.</p>
         }
         else
         {
-            <table class="table table-striped">
-                <tbody>
-                    @foreach (var connectionTime in Device.ConnectionEvents)
-                    {
-                        <tr>
-                            <td>
-                                <span class="font-monospace">@connectionTime.ToString(Ovning16.Models.Device.DateFormat)</span>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <QuickGrid Items="@itemsQueryable" Pagination="@pagination">
+                <PropertyColumn Property="@(dt => dt)" Title="Time"></PropertyColumn>
+            </QuickGrid>
+
+            <Paginator State="@pagination" />
         }
     </div>
 }

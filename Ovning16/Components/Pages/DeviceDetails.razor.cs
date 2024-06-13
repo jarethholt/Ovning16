@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Ovning16.Contracts.Services;
 using Ovning16.Models;
+using Microsoft.AspNetCore.Components.QuickGrid;
 
 namespace Ovning16.Components.Pages;
 
@@ -17,6 +18,10 @@ public partial class DeviceDetails
     private Device? _device;
     protected bool FoundDevice { get; set; } = false;
 
+    protected IQueryable<DateTime>? itemsQueryable;
+    protected int queryableCount = 0;
+    public PaginationState pagination = new() { ItemsPerPage = 10 };
+
     protected override void OnInitialized()
     {
         _device = DeviceDataService.GetDeviceByGuid(DeviceGuid);
@@ -25,6 +30,8 @@ public partial class DeviceDetails
         {
             FoundDevice = true;
             Device = _device;
+            itemsQueryable = Device.ConnectionEvents.AsQueryable().OrderByDescending(dt => dt);
+            queryableCount = itemsQueryable.Count();
         }
     }
 }
