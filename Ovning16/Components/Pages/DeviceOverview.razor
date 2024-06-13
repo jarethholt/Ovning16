@@ -23,7 +23,7 @@ else
                 <tr>
                     <th>ID</th>
                     <th>Name (Nickname)</th>
-                    <th class="text-center">Online?</th>
+                    <th class="text-center">Status</th>
                     <th>Last connected</th>
                     <th class="text-center">Actions</th>
                     <th class="text-center">Links</th>
@@ -43,7 +43,9 @@ else
                                 }
                             </div>
                         </td>
-                        <td class="text-center">@device.IsOnline</td>
+                        <td class="text-center">
+                            <StatusBadge Status="@device.IsOnline" />
+                        </td>
                         @if (device.HasBeenConnected)
                         {
                             <td>
