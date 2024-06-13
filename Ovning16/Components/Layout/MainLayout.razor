@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@using Ovning16.Components.Widgets
 
 <PageTitle>AWIPEV Atmospheric Observatory</PageTitle>
 
@@ -9,9 +10,12 @@
 </header>
 
 <main>
-    <div class="container-fluid h-100">
+    <div class="container-fluid">
         <div class="row">
-            <div id="page-content-wrapper">
+            <div class="d-none d-md-block col-md-1 sticky-top h-100">
+                <StatusSummary></StatusSummary>
+            </div>
+            <div class="col-12 col-md-11" id="page-content-wrapper">
                 @Body
             </div>
         </div>

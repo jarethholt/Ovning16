@@ -1,10 +1,7 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-@using Ovning16.Components.Widgets
 
 <h3 class="text-center text-light-emphasis mt-2 mb-2">Overview of Devices</h3>
-
-<StatusSummary></StatusSummary>
 
 @if (Devices is null)
 {
@@ -12,47 +9,63 @@
 }
 else
 {
-    <table class="table table-sm table-hover table-bordered border-primary align-middle">
-        <thead>
-            <tr>
-                <th>Device GUID</th>
-                <th>Name</th>
-                <th class="text-center">Online?</th>
-                <th>Last connected</th>
-                <th class="text-center">Actions</th>
-                <th class="text-center">Links</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var device in Devices)
-            {
-                <tr class="align-items-center">
-                    <td class="text-monospace">@device.ShortGuid</td>
-                    <td>@device.Name</td>
-                    <td class="text-center">@device.IsOnline</td>
-                    @if (device.HasBeenConnected)
-                    {
-                        <td>
-                            @device.FormatLastConnectionTime()
-                            <br />@device.FormatTimeSinceLastConnection() ago
-                        </td>
-                        
-                    }
-                    else
-                    {
-                        <td>Never connected</td>
-                    }
-                    <td class="text-center">
-                        <button class="btn btn-info" @onclick="@(() => device.PingDevice())">Ping device</button>
-                        <button class="btn btn-info" @onclick="@(() => device.ToggleStatus())">Toggle status</button>
-                    </td>
-                    <td class="text-center">
-                        <a class="btn btn-outline-primary" href="@($"/devicedetails/{device.DeviceGuid}")">Details</a>
-                        <a class="btn btn-outline-primary" href="@($"/editdevice/{device.DeviceGuid}")">Edit</a>
-                        <a class="btn btn-outline-primary" href="@($"/deletedevice/{device.DeviceGuid}")">Delete</a>
-                    </td>
+    <div class="container">
+        <table class="table table-sm table-hover table-bordered border-primary align-middle">
+            <colgroup>
+                <col span="1" style="width:5rem" />
+                <col span="1" style="width:auto" />
+                <col span="1" style="width:5rem" />
+                <col span="1" style="width:12rem" />
+                <col span="1" style="width:6rem" />
+                <col span="1" style="width:5rem" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th class="text-center">Online?</th>
+                    <th>Last connected</th>
+                    <th class="text-center">Actions</th>
+                    <th class="text-center">Links</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var device in Devices)
+                {
+                    <tr class="align-items-center">
+                        <td class="text-monospace">@device.ShortGuid</td>
+                        <td>@device.Name</td>
+                        <td class="text-center">@device.IsOnline</td>
+                        @if (device.HasBeenConnected)
+                        {
+                            <td>
+                                <div class="vstack">
+                                    <span class="font-monospace">@device.FormatLastConnectionTime()</span>
+                                    <span>@device.FormatTimeSinceLastConnection() ago</span>
+                                </div>
+                            </td>
+                        
+                        }
+                        else
+                        {
+                            <td>Never connected</td>
+                        }
+                        <td>
+                            <div class="text-center vstack">
+                                <button class="btn btn-info mb-1" @onclick="@(() => device.PingDevice())">Ping device</button>
+                                <button class="btn btn-info" @onclick="@(() => device.ToggleStatus())">Toggle status</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center vstack">
+                                <a class="btn btn-outline-primary mb-1" href="@($"/devicedetails/{device.DeviceGuid}")">Details</a>
+                                <a class="btn btn-outline-primary mb-1" href="@($"/editdevice/{device.DeviceGuid}")">Edit</a>
+                                <a class="btn btn-outline-primary" href="@($"/deletedevice/{device.DeviceGuid}")">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
