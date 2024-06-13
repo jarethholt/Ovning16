@@ -1,7 +1,10 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@using Ovning16.Components.Widgets
 
 <h3 class="text-center text-light-emphasis mt-2 mb-2">Overview of Devices</h3>
+
+<StatusSummary></StatusSummary>
 
 @if (Devices is null)
 {

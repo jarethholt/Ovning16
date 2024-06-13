@@ -10,4 +10,5 @@ public interface IDeviceDataService
     public Device AddDevice(DeviceAddDTO deviceDTO);
     public Device UpdateDevice(Device device, DeviceUpdateDTO deviceDTO);
     public void DeleteDevice(Device device);
+    public (int, int) NumberOfDevicesOnlineAndOffline();
 }

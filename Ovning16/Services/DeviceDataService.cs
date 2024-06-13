@@ -98,4 +98,11 @@ public class DeviceDataService : IDeviceDataService
         deviceDTO.UpdateDeviceInfo(device);
         return device;
     }
+
+    public (int, int) NumberOfDevicesOnlineAndOffline()
+    {
+        int numOnline = Devices.Where(d => d.IsOnline).Count();
+        int numOffline = Devices.Where(d => !d.IsOnline).Count();
+        return (numOnline, numOffline);
+    }
 }
