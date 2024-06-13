@@ -1,0 +1,16 @@
+﻿
+@rendermode InteractiveServer
+
+@if (!Saved)
+{
+    @ChildContent
+}
+else
+{
+    <div class="alert alert-success">@Message</div>
+
+    @foreach(var (href, text) in LinkHrefsAndTexts)
+    {
+        <LinkButton Href="@href">@text</LinkButton>
+    }
+}

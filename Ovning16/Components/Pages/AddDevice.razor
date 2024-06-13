@@ -1,45 +1,42 @@
 ﻿@page "/adddevice"
 @rendermode InteractiveServer
 
+<div class="container-fluid">
 <MainHeader>Add new device</MainHeader>
+<SuccessMessage Saved="@Saved" Message="Device created" LinkHrefsAndTexts="@LinkHrefsAndTexts">
 
-@if(Device is null){
-    <EditForm Enhance Model="DeviceAddDTO" FormName="AddDeviceForm" OnSubmit="@HandleSubmit">
-        <div class="row mb-3 align-items-center">
-            <label for="name" class="col-sm-2 col-form-label">Name: </label>
-            <div class="col-sm-10">
-                <InputText id="name" class="form-control" @bind-Value="@DeviceAddDTO.Name" placeholder="Name of the new device"></InputText>
-            </div>
+<EditForm Enhance Model="DeviceAddDTO" FormName="AddDeviceForm" OnSubmit="@HandleSubmit">
+    <div class="row mb-3 align-items-center">
+        <label for="name" class="col-sm-2 col-form-label">Name: </label>
+        <div class="col-sm-10">
+            <InputText id="name" class="form-control" @bind-Value="@DeviceAddDTO.Name" placeholder="Name of the new device"></InputText>
         </div>
+    </div>
 
-        <div class="row mb-3 align-items-center">
-            <label for="nickname" class="col-sm-2 col-form-label">Nickname (optional): </label>
-            <div class="col-sm-10">
-                <InputText id="nickname" class="form-control" @bind-Value="@DeviceAddDTO.NickName" placeholder="Nickname of the device"></InputText>
-            </div>
+    <div class="row mb-3 align-items-center">
+        <label for="nickname" class="col-sm-2 col-form-label">Nickname (optional): </label>
+        <div class="col-sm-10">
+            <InputText id="nickname" class="form-control" @bind-Value="@DeviceAddDTO.NickName" placeholder="Nickname of the device"></InputText>
         </div>
+    </div>
 
-        <div class="row mb-3 align-items-center">
-            <label for="description" class="col-sm-2 col-form-label">Description: </label>
-            <div class="col-sm-10">
-                <InputTextArea rows="3" id="description" class="form-control" @bind-Value="@DeviceAddDTO.Description" placeholder="Description of the device"></InputTextArea>
-            </div>
+    <div class="row mb-3 align-items-center">
+        <label for="description" class="col-sm-2 col-form-label">Description: </label>
+        <div class="col-sm-10">
+            <InputTextArea rows="3" id="description" class="form-control" @bind-Value="@DeviceAddDTO.Description" placeholder="Description of the device"></InputTextArea>
         </div>
+    </div>
 
-        <div class="row mb-3 align-items-center">
-            <label for="isOnline" class="col-sm-2 col-form-label">Device starts online: </label>
-            <div class="col-sm-10">
-                <InputCheckbox id="isOnline" class="form-check-input" @bind-Value="@DeviceAddDTO.StartsOnline"></InputCheckbox>
-            </div>
+    <div class="row mb-3 align-items-center">
+        <label for="isOnline" class="col-sm-2 col-form-label">Device starts online: </label>
+        <div class="col-sm-10">
+            <InputCheckbox id="isOnline" class="form-check-input" @bind-Value="@DeviceAddDTO.StartsOnline"></InputCheckbox>
         </div>
+    </div>
 
-        <button type="submit" class="btn btn-primary">Create device</button>
-    </EditForm>
-}
-else
-{
-    <div class="alert alert-success">Device successfully created</div>
-
-    <LinkButton Href="@($"devicedetails/{Device.DeviceGuid}")">Device details</LinkButton>
+    <button type="submit" class="btn btn-primary">Create device</button>
     <LinkButton Href="/">Back to overview</LinkButton>
-}
+</EditForm>
+
+</SuccessMessage>
+</div>

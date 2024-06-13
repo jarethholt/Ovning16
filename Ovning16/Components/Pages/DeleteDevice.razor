@@ -4,47 +4,50 @@
 <div class="container-fluid">
 <MainHeader>Delete this device?</MainHeader>
 <LookForDevice DeviceDataService="@DeviceDataService" DeviceGuid="@DeviceGuid" SetDevice="@SetDevice">
+<SuccessMessage Saved="@Saved" Message="Device deleted" LinkHrefsAndTexts="@LinkHrefsAndTexts">
 
-    <table class="table table-sm align-middle mb-3">
-        <tbody>
-            <tr>
-                <td>ID</td>
-                <td>@Device.DeviceGuid</td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>@Device.Name</td>
-            </tr>
-            <tr>
-                <td>NickName</td>
-                <td>@(Device.NickName is null ? string.Empty : Device.NickName)</td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>@Device.Description</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td><StatusBadge Status="@Device.IsOnline" /></td>
-            </tr>
-            <tr>
-                <td>Last connected</td>
-                @if (!Device.HasBeenConnected)
-                {
-                    <td>Never connected</td>
-                }
-                else
-                {
-                    <td>@Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)</td>
-                }
-            </tr>
-        </tbody>
-    </table>
+<table class="table table-sm align-middle mb-3">
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>@Device.DeviceGuid</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>@Device.Name</td>
+        </tr>
+        <tr>
+            <td>NickName</td>
+            <td>@(Device.NickName is null ? string.Empty : Device.NickName)</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>@Device.Description</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td><StatusBadge Status="@Device.IsOnline" /></td>
+        </tr>
+        <tr>
+            <td>Last connected</td>
+            @if (!Device.HasBeenConnected)
+            {
+                <td>Never connected</td>
+            }
+            else
+            {
+                <td>@Device.FormatLastConnectionTime() (@Device.FormatTimeSinceLastConnection() ago)</td>
+            }
+        </tr>
+    </tbody>
+</table>
 
-    <button type="button" class="btn btn-danger" @onclick="@HandleDelete">Delete device</button>
-    <LinkButton Href="@($"/devicedetails/{Device.DeviceGuid}")">Device details</LinkButton>
-    <LinkButton Href="@($"/editdevice/{Device.DeviceGuid}")">Edit device</LinkButton>
-    <LinkButton Href="/">Back to overview</LinkButton>
+<button type="button" class="btn btn-danger" @onclick="@HandleDelete">Delete device</button>
+@foreach (var (href, text) in LinkHrefsAndTexts)
+{
+    <LinkButton Href="@href">@text</LinkButton>
+}
 
+</SuccessMessage>
 </LookForDevice>
 </div>

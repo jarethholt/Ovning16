@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Ovning16.Components.Helpers;
 using Ovning16.Contracts.Services;
 using Ovning16.Models;
 
@@ -30,4 +31,10 @@ public partial class EditDevice
         DeviceDataService.UpdateDevice(Device, DeviceUpdateDTO);
         Saved = true;
     }
+
+    private (string, string)[] LinkHrefsAndTexts => [
+        ($"devicedetails/{Device.DeviceGuid}", "Device details"),
+        ($"deletedevice/{ Device.DeviceGuid}", "Delete device"),
+        ("/", "Back to overview")
+        ];
 }
